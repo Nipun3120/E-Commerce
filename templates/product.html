@@ -33,7 +33,7 @@
         <!--Grid column-->
         <div class="col-md-6 mb-4">
 
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg" class="img-fluid" alt="">
+          <img src="{% static 'img/items/tv.jpg' %}" class="img-fluid" alt="">
 
         </div>
         <!--Grid column-->
@@ -46,28 +46,29 @@
 
             <div class="mb-3">
               <a href="">
-                <span class="badge purple mr-1">Category 2</span>
+                <span class="badge purple mr-1">{{ object.get_category_display }}</span>
               </a>
-              <a href="">
-                <span class="badge blue mr-1">New</span>
-              </a>
-              <a href="">
-                <span class="badge red mr-1">Bestseller</span>
-              </a>
+              <h3 style="margin-top: 10px;">{{ item.title }}</h3>
             </div>
 
             <p class="lead">
-              <span class="mr-1">
-                <del>$200</del>
-              </span>
-              <span>$100</span>
+
+              {% if item.discounted_price %}
+                <span class="mr-1">
+                  price: <del>${{ item.price }}</del>
+                </span>
+                <span>${{ item.discounted_price }}</span>
+              {% else %}
+                <span>price:  ${{ item.price }}</span>
+              {% endif %}
             </p>
 
-            <p class="lead font-weight-bold">Description</p>
-
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et dolor suscipit libero eos atque quia ipsa
-              sint voluptatibus!
-              Beatae sit assumenda asperiores iure at maxime atque repellendus maiores quia sapiente.</p>
+            {% if item.description %}
+              <p class="lead font-weight-bold">Description</p>
+              <p>{{ item.description }}</p>
+            {% else %}
+              {{NULL}}
+            {% endif %}
 
             <form class="d-flex justify-content-left">
               <!-- Default input -->
@@ -113,7 +114,7 @@
         <!--Grid column-->
         <div class="col-lg-4 col-md-12 mb-4">
 
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
+          <img src="{% static 'img/items/smartphone.jpg' %}" class="img-fluid" alt="">
 
         </div>
         <!--Grid column-->
@@ -121,7 +122,7 @@
         <!--Grid column-->
         <div class="col-lg-4 col-md-6 mb-4">
 
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
+          <img src="{% static 'img/items/lenovo-ideapad.jpg' %}" class="img-fluid" alt="">
 
         </div>
         <!--Grid column-->
@@ -129,7 +130,7 @@
         <!--Grid column-->
         <div class="col-lg-4 col-md-6 mb-4">
 
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
+          <img src="{% static 'img/items/smartphone-2.jpg' %}" class="img-fluid" alt="">
 
         </div>
         <!--Grid column-->
