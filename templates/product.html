@@ -18,6 +18,22 @@
 </head>
 
 <body>
+  <div style="margin-top: 70px; padding: 20px;">
+    {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show " role="alert">
+          {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span data-dismiss="true">&times;</span>
+        </button>
+      </div> 
+    {% endfor %}
+    {% endif %}
+  </div>
+
+  
+
+
 
   <!-- Navbar -->
     {% include "navbar.html" %}
@@ -69,15 +85,22 @@
             {% else %}
               {{NULL}}
             {% endif %}
-
+            
+            <!--
             <form class="d-flex justify-content-left">
-              <!-- Default input -->
               <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
               <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
                 <i class="fas fa-shopping-cart ml-1"></i>
               </button>
+            </form> -->
 
-            </form>
+            <a href="{% url 'core:add_to_cart' item.slug %}" class="btn btn-primary btn-md my-0 p"> 
+              Add to cart
+                <i class="fas fa-shopping-cart ml-1"></i>
+            </a>
+            <a href="{% url 'core:remove_from_cart' item.slug %}" class="btn btn-danger btn-md my-0 p"> 
+              remove from cart
+            </a>
 
           </div>
           <!--Content-->
