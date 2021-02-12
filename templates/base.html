@@ -13,7 +13,20 @@
 </head>
 <body>
     {% block body %}
+    <div style="margin-top: 70px; padding: 20px;">
+        {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show " role="alert">
+              {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span data-dismiss="true">&times;</span>
+            </button>
+          </div> 
+        {% endfor %}
+        {% endif %}
+    </div>
     {% endblock %}
+
     {% block content  %}
     {% endblock content %}
     {% block extra_body %}
