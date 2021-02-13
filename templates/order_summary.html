@@ -49,7 +49,7 @@
                                 $ {{ order_item.get_total_price }}
                             {% endif %}
                             <a href="{% url 'core:remove_from_cart' order_item.item.slug %}">
-                                <i class="fas fa-trash-alt "></i>
+                                <i class="fas fa-trash-alt float-right" style="color: crimson;"></i>
                             </a>
                         </td>
 

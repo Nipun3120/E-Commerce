@@ -70,7 +70,7 @@ def add_to_cart(request, slug):
         order.items.add(order_item)
         messages.info(request, "This item was added into your cart")
         
-    return redirect('core:product', slug=slug)
+    return redirect('core:order_summary')
 
 @login_required
 def remove_from_cart(request, slug):
