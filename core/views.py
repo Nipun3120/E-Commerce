@@ -8,6 +8,7 @@ from .models import Item, Order, OrderItem
 
 class HomeView(ListView):
     model = Item
+    paginate_by = 5
     template_name = 'home-page.html'
 
 def check(request):

@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'crispy_forms',
     'core'
 ]
 
@@ -63,9 +64,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # LOGIN/LOGOUT DEFAULT LINKS
-LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login'
+
 
 #DATABASES
 DATABASES = {
@@ -100,3 +101,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID=1
+
+# CRISPY_FORMS
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

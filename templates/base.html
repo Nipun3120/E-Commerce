@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,27 +10,23 @@
     {% block extra_head %}
     {% endblock %}
 
-    {% block head %} {% endblock %}
+    {% block head %} 
+    <!-- BOOTSTRAP LINKS -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+
+    {% endblock %}
 
 </head>
 <body>
     {% block body %}
-    <div style="margin-top: 70px; padding: 20px;">
-        {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags }} alert-dismissible fade show " role="alert">
-              {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span data-dismiss="true">&times;</span>
-            </button>
-          </div> 
-        {% endfor %}
-        {% endif %}
-    </div>
-    {% endblock %}
-
     {% block content  %}
     {% endblock content %}
+    {% endblock %}
+
+    
     {% block extra_body %}
     {% endblock %}
 </body>
