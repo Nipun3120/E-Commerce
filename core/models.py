@@ -54,6 +54,16 @@ class OrderItem(models.Model):
         return self.quantity * self.item.price
     def get_total_price_discount(self):
         return self.quantity * self.item.discounted_price
+    def get_price_saved(self):
+        return self.get_total_price() - self.get_total_price()
+
+    def get_final_price(self):
+        if self.item.discounted_price:
+            return self.get_total_price_discount()
+        return self.get_total_price()
+
+    def get_total_actual_price(self):
+        return self.get_total_price()
 
 
 class Order(models.Model):
@@ -65,4 +75,18 @@ class Order(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def get_total(self):
+        total_price = 0
+        for item_price in self.items.all():
+            total_price += item_price.get_final_price()
+        return total_price
+
+    def get_total_actual(self):
+        total_price = 0
+        for item_price in self.items.all():
+            total_price += item_price.get_total_actual_price()
+        return total_price - self.get_total()
+
+        
 

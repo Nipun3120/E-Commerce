@@ -26,20 +26,16 @@
 
   <!--Main layout-->
   <main class="mt-5 pt-4">
-    <div class="container dark-grey-text mt-5">
+    <div class="container dark-grey-text mt-5" >
 
-      <!--Grid row-->
       <div class="row wow fadeIn">
 
-        <!--Grid column-->
         <div class="col-md-6 mb-4">
 
           <img src="{% static 'img/items/tv.jpg' %}" class="img-fluid" alt="">
 
         </div>
-        <!--Grid column-->
 
-        <!--Grid column-->
         <div class="col-md-6 mb-4">
 
           <!--Content-->
@@ -68,7 +64,7 @@
               <p class="lead font-weight-bold">Description</p>
               <p>{{ item.description }}</p>
             {% else %}
-              {{NULL}}
+              {{ NULL }}
             {% endif %}
             
             <!--
@@ -83,10 +79,6 @@
               Add to cart
                 <i class="fas fa-shopping-cart ml-1"></i>
             </a>
-            <a href="{% url 'core:remove_from_cart' item.slug %}" class="btn btn-danger btn-md my-0 p"> 
-              remove from cart
-            </a>
-
           </div>
           <!--Content-->
 
@@ -111,45 +103,25 @@
             quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p>
 
         </div>
-        <!--Grid column-->
-
       </div>
-      <!--Grid row-->
 
-      <!--Grid row-->
+      <!-- similar products -->
       <div class="row wow fadeIn">
-
-        <!--Grid column-->
         <div class="col-lg-4 col-md-12 mb-4">
-
           <img src="{% static 'img/items/smartphone.jpg' %}" class="img-fluid" alt="">
-
         </div>
-        <!--Grid column-->
 
-        <!--Grid column-->
         <div class="col-lg-4 col-md-6 mb-4">
-
           <img src="{% static 'img/items/lenovo-ideapad.jpg' %}" class="img-fluid" alt="">
-
         </div>
-        <!--Grid column-->
 
-        <!--Grid column-->
         <div class="col-lg-4 col-md-6 mb-4">
-
           <img src="{% static 'img/items/smartphone-2.jpg' %}" class="img-fluid" alt="">
-
         </div>
-        <!--Grid column-->
-
       </div>
-      <!--Grid row-->
-
     </div>
   </main>
-  <!--Main layout-->
-
+  
 
     <!-- footer -->
       {% include 'footer.html' %}
