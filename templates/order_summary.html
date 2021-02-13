@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- navbar -->
+{% include 'navbar.html' %}
+
+<main>
+    <div class="container">
+
+        <h2>Order Summary</h2>
+        <div class="table-responsive text-nowrap">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total Price</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order_item in object.items.all %}
+                    <tr>
+                        
+                        <td scope="row">1</td>
+                        <td>{{ order_item.item.title }}</td>
+                        <td>{{ order_item.item.price}}</td>
+                        <td>{{ order_item.quantity }}</td>
+                        <td>
+                            {% if order_item.item.discounted_price %}
+                                {{ order_item.get_total_price_discount }}
+                            {% else %}
+                                {{ order_item.get_total_price }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+    </div>
+</main>
+
+
+<!-- footer -->
+{% include 'footer.html' %}
+{% endblock %}

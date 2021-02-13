@@ -50,6 +50,10 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.quantity} of {self.item.title}"
 
+    def get_total_price(self):
+        return self.quantity * self.item.price
+    def get_total_price_discount(self):
+        return self.quantity * self.item.discounted_price
 
 
 class Order(models.Model):

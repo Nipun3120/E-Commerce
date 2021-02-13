@@ -2,8 +2,11 @@ from django.http import HttpResponseRedirect, request, HttpResponse
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 from .models import Item, Order, OrderItem
 
 class HomeView(ListView):
@@ -11,16 +14,34 @@ class HomeView(ListView):
     paginate_by = 5
     template_name = 'home-page.html'
 
+
+class OrderSummaryView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        
+        try:
+            order = Order.objects.get(user = self.request.user, ordered=False)
+            context = {
+                'object': order, 
+                'count': 1,
+            }
+            return render(self.request, 'order_summary.html', context)
+
+        except ObjectDoesNotExist:
+            messages.error(self.request, "You do not have an active order")
+            return redirect("/")
+
+
+
 def check(request):
     context = {}
     return render(request, 'checkout-page.html', context)
 
-class ItemDetailView(DetailView):
+class ItemDetailView(LoginRequiredMixin, DetailView):
     model = Item
     template_name = 'product.html'
     
 
-
+@login_required
 def add_to_cart(request, slug):
     
     item = get_object_or_404(Item, slug=slug)
@@ -52,7 +73,7 @@ def add_to_cart(request, slug):
         
     return redirect('core:product', slug=slug)
 
-
+@login_required
 def remove_from_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(
@@ -69,7 +90,7 @@ def remove_from_cart(request, slug):
                 ordered=False
             )[0]
             order.items.remove(order_item)
-            messages.info(request, "This item was removed fromn your cart")
+            messages.info(request, "This item was removed from your cart")
             return redirect("core:product", slug=slug)
 
         else:
