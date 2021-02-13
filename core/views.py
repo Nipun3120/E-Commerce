@@ -115,7 +115,10 @@ def decrease_item_from_cart(request, slug):
                 user=request.user,
                 ordered=False
             )[0]
-            order_item.quantity -= 1
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+            else:
+                order.items.remove(order_item)
             order_item.save()
             return redirect('core:order_summary')
             
