@@ -11,7 +11,7 @@ from .models import Item, Order, OrderItem
 
 class HomeView(ListView):
     model = Item
-    paginate_by = 5
+    paginate_by = 4
     template_name = 'home-page.html'
 
 
@@ -141,7 +141,4 @@ def increase_item_in_cart(request, slug):
             order_item.quantity += 1
             order_item.save()
             return redirect('core:order_summary')
-
-
-
 
