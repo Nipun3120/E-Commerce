@@ -65,9 +65,11 @@
             <li class="nav-item">
               <a class="nav-link waves-effect border border-primary rounded" href="{% url 'account_logout' %}">Logout</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect border rounded ml-3" ><h6>Hello <span style="text-transform: uppercase;">{{ user.username }}</span></h6></a>
+            </li>
           </ul>
 
-          
           {% else %}
           <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item">

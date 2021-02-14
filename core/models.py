@@ -48,7 +48,7 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=1)           #gets the count of the items ordered
 
     def __str__(self):
-        return f"{self.quantity} of {self.item.title}"
+        return f"{self.quantity} of {self.item.title}, user: {self.user}"
 
     def get_total_price(self):
         return self.quantity * self.item.price
@@ -88,13 +88,5 @@ class Order(models.Model):
             total_price += item_price.get_total_actual_price()
         return total_price - self.get_total()
 
-        
+    
 
-class WhishList(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    item = models.ForeignKey('Item', on_delete=models.CASCADE, blank=True, null=True)
-
-    def __str__(self):
-        return self.item.title
-
-        
