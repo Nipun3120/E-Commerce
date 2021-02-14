@@ -30,7 +30,6 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return redirect("/")
 
 
-
 def check(request):
     context = {}
     return render(request, 'checkout-page.html', context)
@@ -41,8 +40,7 @@ class ItemDetailView(LoginRequiredMixin, DetailView):
     
 
 @login_required
-def add_to_cart(request, slug):
-    
+def add_to_cart(request, slug):    
     item = get_object_or_404(Item, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(
         item=item,
@@ -71,6 +69,7 @@ def add_to_cart(request, slug):
         messages.info(request, "This item was added into your cart")
         
     return redirect('core:order_summary')
+
 
 @login_required
 def remove_from_cart(request, slug):
@@ -142,3 +141,7 @@ def increase_item_in_cart(request, slug):
             order_item.quantity += 1
             order_item.save()
             return redirect('core:order_summary')
+
+
+
+

@@ -11,6 +11,9 @@ urlpatterns = [
     path('remove_from_cart/<slug>', remove_from_cart, name='remove_from_cart'),
     path('order_summary/', OrderSummaryView.as_view(), name='order_summary'),
     path('decrease_item_from_cart/<slug>', decrease_item_from_cart, name='decrease_item_from_cart'),
-    path('increase_item_in_cart/<slug>', increase_item_in_cart, name='increase_item_in_cart')
+    path('increase_item_in_cart/<slug>', increase_item_in_cart, name='increase_item_in_cart'),
+    # path('add_to_whishlist/<slug>', add_to_whishlist, name='add_to_whishlist'),
+    # path('wishist/', WishList.as_view(), name='wishlist')
+
 ]
  

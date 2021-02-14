@@ -15,11 +15,11 @@ LABEL_CHOICES = (
 )
 
 class Item(models.Model):
+    image = models.ImageField(blank=True, null=True)
     title = models.CharField(max_length=256)
     price = models.FloatField()
     discounted_price = models.FloatField(blank=True, null=True)
     description=models.TextField(blank=True, null=True)
-    
 
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
     label = models.CharField(choices=LABEL_CHOICES, max_length=1)
@@ -90,3 +90,11 @@ class Order(models.Model):
 
         
 
+class WhishList(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return self.item.title
+
+        
