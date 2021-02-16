@@ -5,9 +5,12 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.template import RequestContext
 
 from django.views.generic import ListView, DetailView, View
 from .models import Item, Order, OrderItem
+# from .forms import CheckoutForm
+from .forms import CheckoutForm
 
 class HomeView(ListView):
     model = Item
@@ -29,10 +32,30 @@ class OrderSummaryView(LoginRequiredMixin, View):
             messages.error(self.request, "You do not have an active order")
             return redirect("/")
 
+class CheckoutView(View):
+    def get(self, *args, **kwargs):
+        form = CheckoutForm()
+        context = {
+            'form': form,
+        }
+        return render(self.request, 'checkout-page.html', context)
 
-def check(request):
-    context = {}
-    return render(request, 'checkout-page.html', context)
+    def post(self, *args, **kwargs):
+        form = CheckoutForm(self.request.POST or None)
+        print("------sdqadwq-------------------")
+        print(self.request.POST)
+
+        if form.is_valid():
+            print("-----asdasdadq--------------------")
+            print(form.cleaned_data)
+            return redirect('core:check')
+        
+        messages.warning(self.request, 'invalid form')
+        return redirect('core:check')
+
+
+    
+
 
 class ItemDetailView(LoginRequiredMixin, DetailView):
     model = Item

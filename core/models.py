@@ -66,6 +66,8 @@ class OrderItem(models.Model):
         return self.get_total_price()
 
 
+
+
 class Order(models.Model):
     user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     items=models.ManyToManyField(OrderItem)    
@@ -87,6 +89,11 @@ class Order(models.Model):
         for item_price in self.items.all():
             total_price += item_price.get_total_actual_price()
         return total_price - self.get_total()
+
+    # def get_extra_discount(self):
+    #     final_price = self.get_total()
+    #     if final_price > 5000:
+    #         return final_price - (final_price*10/100)
 
     
 

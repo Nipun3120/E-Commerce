@@ -31,3 +31,114 @@
     </div>
 </div>
 </div>
+
+
+
+
+
+
+
+form 
+
+            <!--Card content-->
+            <form class="card-body" method="POST">
+              {% csrf_token %}
+
+              <!--address-->
+              <div class="md-form mb-5">
+                <!-- <input type="text" id="address" class="form-control" placeholder="1234 Main St" required> -->
+                {{ form.street_address }}
+                <label for="address" class="">Address</label>
+              </div>
+
+              <!--address-2-->
+              <div class="md-form mb-5">
+                <!-- <input type="text" id="address-2" class="form-control" placeholder="Apartment or suite"> -->
+                {{ form.apartment_address }}
+                <label for="address-2" class="">Address 2 (optional)</label>
+              </div>
+
+              <!--Grid row-->
+              <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4">
+
+                  <label for="country">Country</label>
+                  <!-- <select class="custom-select d-block w-100" id="country" required>
+                    <option value="">Choose...</option>
+                    <option>United States</option>
+                  </select> -->
+                  {{ form.country }}
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+                <!-- ------------------------------ STATE PACKAGE ------------------------------ -->
+                <!-- Grid column
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                  <label for="state">State</label>
+                  <select class="custom-select d-block w-100" id="state" required>
+                    <option value="">Choose...</option>
+                    <option>California</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+
+                </div> -->
+
+
+
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                  <label for="{{ form.zipcode }">Zipcode</label>
+                  <!-- <input type="text" class="form-control" id="zip" placeholder="" required> -->
+                  {{ form.zipcode }}
+                  <div class="invalid-feedback">
+                    Zip code required.
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+              <hr>
+
+              <div class="custom-control custom-checkbox">
+                {{ form.same_billing_address }}
+                <label for="{{ form.same_billing_address.label }}">{{ form.same_billing_address.label }}</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                {{ form.save_info }}
+                <label for="{{ form.save_info.label }}">{{ form.save_info.label }}</label>
+              </div>
+
+              <hr>
+
+              <div class="d-block my-3">
+              {% for value, name in form.fields.payment_option.choices %}
+                <div class="custom-control custom-radio">
+                  <input id="{{ value }}" name="payment_option" type="radio" class="custom-control-label">
+                  <label for="{{ name }}">{{ name }}</label>
+                </div>
+              {% endfor %}
+
+              </div>
+
+              <!-- card-details.txt -->
+
+
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+
+            </form>
