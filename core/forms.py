@@ -28,7 +28,7 @@ class CheckoutForm(forms.Form):
         })
     )
 
-    same_billing_address = forms.BooleanField(widget=forms.CheckboxInput, required=False)
+    same_shipping_address = forms.BooleanField(widget=forms.CheckboxInput, required=False)
     save_info = forms.BooleanField(widget=forms.CheckboxInput, required=False)
 
     payment_option = forms.ChoiceField(widget=forms.RadioSelect, choices=PAYMENT_OPTIONS, required=True)

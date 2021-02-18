@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template import RequestContext
 
 from django.views.generic import ListView, DetailView, View
-from .models import Item, Order, OrderItem
+from .models import Item, Order, OrderItem, BillingAddress
 # from .forms import CheckoutForm
 from .forms import CheckoutForm
 
@@ -42,19 +42,44 @@ class CheckoutView(View):
 
     def post(self, *args, **kwargs):
         form = CheckoutForm(self.request.POST or None)
-        print("------sdqadwq-------------------")
-        print(self.request.POST)
+        try:
+            order = Order.objects.get(user = self.request.user, ordered=False)
+            context = {
+                'object': order, 
+            }
 
-        if form.is_valid():
-            print("-----asdasdadq--------------------")
-            print(form.cleaned_data)
-            return redirect('core:check')
+            if form.is_valid():
+                street_address = form.cleaned_data.get('street_address')
+                apartment_address = form.cleaned_data.get('apartment_address')
+                country = form.cleaned_data.get('country')
+                zipcode = form.cleaned_data.get('zipcode')
+
+                # same_shipping_address = form.cleaned_data.get('same_shipping_address')
+                # save_info = form.cleaned_data.get('save_info')
+                # payment_option = form.cleaned_data.get('payment_option')
+
+                billing_address = BillingAddress(
+                    user = self.request.user,
+                    street_address = street_address,
+                    apartment_address = apartment_address,
+                    country = country,
+                    zipcode = zipcode,
+                )
+                billing_address.save()
+                order.billing_address = billing_address
+                order.save()
+                
+                
+                return redirect('core:check')
         
+
+        except ObjectDoesNotExist:
+            messages.error(self.request, "You do not have an active order")
+            return redirect("/")
         messages.warning(self.request, 'invalid form')
+
         return redirect('core:check')
 
-
-    
 
 
 class ItemDetailView(LoginRequiredMixin, DetailView):

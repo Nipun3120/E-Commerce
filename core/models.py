@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.db import models
 from django.shortcuts import reverse
-# Create your models here.
+from django_countries.fields import CountryField
+
 
 CATEGORY_CHOICES = (
     ('S', 'Shirt'),
@@ -75,6 +76,8 @@ class Order(models.Model):
     order_date=models.DateTimeField()
     ordered=models.BooleanField(default=False)
 
+    billing_address = models.ForeignKey('BillingAddress', on_delete=models.SET_NULL, blank=True, null=True)
+
     def __str__(self):
         return self.user.username
 
@@ -96,4 +99,12 @@ class Order(models.Model):
     #         return final_price - (final_price*10/100)
 
     
+class BillingAddress(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    street_address = models.CharField(max_length=256)
+    apartment_address = models.CharField(max_length=256)
+    country = CountryField(multiple=False)
+    zipcode = models.CharField(max_length=6)
 
+    def __str__(self):
+        return self.user.username
