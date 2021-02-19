@@ -49,7 +49,7 @@
                                 $ {{ order_item.get_total_price }}
                             {% endif %}
                             <a href="{% url 'core:remove_from_cart' order_item.item.slug %}">
-                                <i class="fas fa-trash-alt float-right" style="color: ;"></i>
+                                <i class="fas fa-trash-alt float-right"></i>
                             </a>
                         </td>
 
@@ -81,6 +81,20 @@
                         <td colspan="4"><strong>You save</td>
                         <td>$ {{ object.get_total_actual }}</td>
                     </tr>
+
+                    {% if object.get_extra_discount %}
+                    <tr>
+                        <td></td>
+                        <td colspan="4"><strong>Extra Discount</td>
+                        <td>$ {{ object.get_extra_discount_amount }}&nbsp;(10%)</td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        <td colspan="4" style="font-weight: 500;"><strong>Grand Total</td>
+                        <td style="font-weight: 500;" class="text-primary">$ {{ object.get_extra_discount }}</td>
+                    </tr>
+                    {% endif %}
 
                     <tr>
                         <td colspan="6">

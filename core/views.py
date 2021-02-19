@@ -32,7 +32,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             messages.error(self.request, "You do not have an active order")
             return redirect("/")
 
-class CheckoutView(View):
+class CheckoutView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         form = CheckoutForm()
         context = {
@@ -80,6 +80,12 @@ class CheckoutView(View):
 
         return redirect('core:check')
 
+class PaymentView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        return render(self.request, 'payment.html')
+
+    def post(self, *args, **kwargs):
+        return redirect('core:home')
 
 
 class ItemDetailView(LoginRequiredMixin, DetailView):

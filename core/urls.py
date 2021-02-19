@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomeView, ItemDetailView, add_to_cart, remove_from_cart, OrderSummaryView, decrease_item_from_cart, increase_item_in_cart, CheckoutView
+from .views import HomeView, ItemDetailView, add_to_cart, remove_from_cart, OrderSummaryView, decrease_item_from_cart, increase_item_in_cart, CheckoutView, PaymentView
 
 app_name = 'core' 
 
@@ -15,6 +15,6 @@ urlpatterns = [
     path('increase_item_in_cart/<slug>', increase_item_in_cart, name='increase_item_in_cart'),
     # path('add_to_whishlist/<slug>', add_to_whishlist, name='add_to_whishlist'),
     # path('wishist/', WishList.as_view(), name='wishlist')
-
+    path('payment/<payment_option>', PaymentView.as_view(), name='payment'),
 ]
  

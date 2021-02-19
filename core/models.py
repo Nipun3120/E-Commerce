@@ -5,9 +5,10 @@ from django_countries.fields import CountryField
 
 
 CATEGORY_CHOICES = (
-    ('S', 'Shirt'),
-    ('SW', 'Sport Wear'),
-    ('OW', 'Outwear'),
+    ('S', 'Phone'),
+    ('SW', 'Laptop'),
+    ('OW', 'Tablet'),
+    ('T', 'TV'),
 )
 LABEL_CHOICES = (
     ('P', 'primary'),
@@ -87,16 +88,20 @@ class Order(models.Model):
             total_price += item_price.get_final_price()
         return total_price
 
-    def get_total_actual(self):
+    def get_total_actual(self):                         # total final price
         total_price = 0
         for item_price in self.items.all():
             total_price += item_price.get_total_actual_price()
         return total_price - self.get_total()
 
-    # def get_extra_discount(self):
-    #     final_price = self.get_total()
-    #     if final_price > 5000:
-    #         return final_price - (final_price*10/100)
+    def get_extra_discount(self):                       # if final price is > 5000
+        final_price = self.get_total()
+        if final_price > 5000.0:
+            return final_price - (final_price*10/100)
+    
+    def get_extra_discount_amount(self):              
+        amount = self.get_total()
+        return amount*10/100
 
     
 class BillingAddress(models.Model):
